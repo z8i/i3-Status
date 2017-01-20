@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# 2017-01-20:v1
+
+CACHE:
+/img/favicon.ico
+/img/apple-touch-icon.png?20170119v2
+/fonts/advent-pro-100-reduced.woff2
+/scripts/doT.min.js
+
+NETWORK:
+/api/
+
+FALLBACK:
+/ /offline.html
