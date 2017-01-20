@@ -30,7 +30,7 @@ AddDefaultCharset utf-8
 
 
 # Restrict access
-<FilesMatch "(^\.|\.json$)">
+<FilesMatch "(^\.|\.(json|md)$)">
     order deny,allow
     deny from all
 </FilesMatch>
