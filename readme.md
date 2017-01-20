@@ -2,7 +2,9 @@
 
 Source Code von [battery.ebiene.de](battery.ebiene.de) Website und API.
 
-`Battery Status` Progressive Web App für BMW i-Modelle ermittelt und zeigt Live-Informationen rund um den Fahrzeug-Akku. Die App bedient sich an der gleichen Schnittstelle, die auch von der deutschsprachigen BMW ConnectedDrive Website verwendet wird. Für die Nutzung der Schnittstelle wird ein Bearer-Token benötigt, den die Applikation von der BMW ConnectedDrive Website automatisch einholt.
+`Battery Status` Progressive Web App für BMW i-Modelle ermittelt und zeigt Live-Informationen rund um den Fahrzeug-Akku. Die App bedient sich an gleicher Schnittstelle, die auch von der deutschsprachigen BMW ConnectedDrive Website verwendet wird. Für die Nutzung der Schnittstelle wird ein Bearer-Token benötigt, den die App von der BMW ConnectedDrive Website automatisch einholt.
+
+Die Webseite nach Einrichtung im Smartphone-Browser aufrufen und zum Homescreen hinzufügen. Ab diesem Zeitpunkt lässt sich die Web App vom Homescreen heraus im Vollbildmodus starten.
 
 
 ### Warnung
@@ -35,3 +37,15 @@ Keine Garantie für Richtigkeit und Aktualität. Inbetriebnahme auf eigene Gefah
 | `username` | BMW ConnectedDrive Benutzername |
 | `password` | BMW ConnectedDrive Passwort     |
 | `vehicle`  | 17-stellige Fahrgestellnummer   |
+
+
+### Sicherheit
+
+Um Zugriffe auf sensible (JSON-)Dateien mit Zugsngs- und Token-Daten zu unterbinden, *muss* in `.htaccess` folgender Code-Snippet aufgenommen werden (in der Installationsdatei `.htaccess` [bereits vorhanden](https://github.com/sergejmueller/battery.ebiene.de/blob/master/.htaccess#L33-L36)):
+
+```apache
+<FilesMatch "(^\.|\.(json|md)$)">
+    order deny,allow
+    deny from all
+</FilesMatch>
+```
