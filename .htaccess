@@ -1,0 +1,63 @@
+# Security
+Options -Indexes
+ServerSignature Off
+
+
+# UTF-8
+AddDefaultCharset utf-8
+
+
+# Don't show PHP errors
+<IfModule mod_php7.c>
+    php_flag display_errors Off
+</IfModule>
+
+
+# Rewrites
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} !^battery\.ebiene\.de$ [NC]
+    RewriteRule ^(.*)$ https://battery.ebiene.de/$1 [R=301,L]
+</IfModule>
+
+
+# Strip spaces
+<IfModule mod_substitute.c>
+    AddOutputFilterByType SUBSTITUTE text/html
+    Substitute s/(\n|\t|\s\s+)//q
+</IfModule>
+
+
+# Restrict access
+<FilesMatch "(^\.|\.json$)">
+    order deny,allow
+    deny from all
+</FilesMatch>
+
+
+# Mime types
+<IfModule mod_mime.c>
+    AddType image/x-icon            ico
+    AddType text/cache-manifest     appcache
+    AddType application/font-woff2  woff2
+    AddType application/javascript  js
+</IfModule>
+
+
+# Expires times
+<IfModule mod_expires.c>
+    ExpiresActive on
+
+    ExpiresDefault                    "access plus 1 year"
+    ExpiresByType text/html           "access plus 1 day"
+    ExpiresByType text/cache-manifest "access plus 0 seconds"
+</IfModule>
+
+
+# Security headers
+SetEnvIf Request_URI ^/$ is_html=1
+Header set X-Content-Type-Options "nosniff" env=is_html
+Header set X-XSS-Protection "1; mode=block" env=is_html
+Header append X-Frame-Options "SAMEORIGIN" env=is_html
+Header set Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; font-src 'self'; img-src 'self'; style-src 'unsafe-inline'; connect-src 'self'" env=is_html
