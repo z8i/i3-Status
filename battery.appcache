@@ -1,10 +1,10 @@
 CACHE MANIFEST
-# 2017-01-20:v1
+# 2017-01-21-v3
 
 CACHE:
-/img/favicon.ico
-/img/apple-touch-icon.png?20170119v2
-/fonts/advent-pro-100-reduced.woff2
+/img/favicon.ico?2017-01-21-v3
+/img/apple-touch-icon.png?2017-01-21-v3
+/fonts/advent-pro-100-reduced.woff2?2017-01-21-v3
 /scripts/doT.min.js
 
 NETWORK:

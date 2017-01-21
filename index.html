@@ -9,9 +9,9 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="Battery Status">
 
-        <link rel="preload" href="/fonts/advent-pro-100-reduced.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="apple-touch-icon" href="/img/apple-touch-icon.png?20170119v2" type="image/png">
-        <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="preload" href="/fonts/advent-pro-100-reduced.woff2?2017-01-21-v3" as="font" type="font/woff2" crossorigin>
+        <link rel="apple-touch-icon" href="/img/apple-touch-icon.png?2017-01-21-v3" type="image/png">
+        <link rel="icon" href="img/favicon.ico?2017-01-21-v3" type="image/x-icon">
 
         <title>Battery Status</title>
 
@@ -37,7 +37,7 @@
                 font-family: 'Advent Pro';
                 font-style: normal;
                 font-weight: 100;
-                src: local('Advent Pro Thin'), local('AdventPro-Thin'), url('/fonts/advent-pro-100-reduced.woff2') format('woff2');
+                src: local('Advent Pro Thin'), local('AdventPro-Thin'), url('/fonts/advent-pro-100-reduced.woff2?2017-01-21-v3') format('woff2');
             }
 
             html {
@@ -67,6 +67,9 @@
             }
             section {
                 margin-bottom: 20px;
+
+                flex-basis: 50%;
+                max-width: 50%;
             }
 
             header {
@@ -82,7 +85,7 @@
                 position: absolute;
 
                 display: flex;
-                flex-flow: column wrap;
+                flex-flow: row wrap;
                 align-items: center;
                 justify-content: center;
             }
@@ -152,8 +155,8 @@
 
                 font-family: 'Advent Pro';
                 font-size: 80px;
-                font-weight: 100;
                 line-height: 80px;
+                font-weight: 100;
 
                 text-rendering: optimizeLegibility;
             }
@@ -265,21 +268,39 @@
         </script>
 
         <script id="footer-tmpl" type="text/x-dot-template">
-            <section class="electric-range">
+            <section>
                 <h4>
-                    Electric range
+                    Range
                 </h4>
                 <h2>
                     {{=it.electricRange}} km
                 </h2>
             </section>
 
-            <section class="charging-ends">
+            <section>
                 <h4>
-                    Fully charged
+                    SoC
+                </h4>
+                <h2>
+                    {{=it.stateOfCharge}} kWh
+                </h2>
+            </section>
+
+            <section>
+                <h4>
+                    Charged
                 </h4>
                 <h2>
                     {{=it.chargingTimeRemaining}}
+                </h2>
+            </section>
+
+            <section>
+                <h4>
+                    SoC Max
+                </h4>
+                <h2>
+                    {{=it.stateOfChargeMax}} kWh
                 </h2>
             </section>
         </script>

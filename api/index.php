@@ -115,22 +115,45 @@ class Battery_API {
 
     function get_vehicle_data() {
         // Init cURL
-        $ch = curl_init();
+        $ch_1 = curl_init();
+        $ch_2 = curl_init();
 
         // Set cURL options
-        curl_setopt( $ch, CURLOPT_URL, 'https://www.bmw-connecteddrive.de/api/vehicle/dynamic/v1/' . $this->auth->vehicle . '?offset=-60' );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' , 'Authorization: Bearer ' . $this->token ) );
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+        curl_setopt( $ch_1, CURLOPT_URL, 'https://www.bmw-connecteddrive.de/api/vehicle/dynamic/v1/' . $this->auth->vehicle . '?offset=-60' );
+        curl_setopt( $ch_1, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' , 'Authorization: Bearer ' . $this->token ) );
+        curl_setopt( $ch_1, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch_1, CURLOPT_FOLLOWLOCATION, true );
 
-        // Exec curl request
-        $response = curl_exec( $ch );
+        curl_setopt( $ch_2, CURLOPT_URL, 'https://www.bmw-connecteddrive.de/api/vehicle/navigation/v1/' . $this->auth->vehicle );
+        curl_setopt( $ch_2, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' , 'Authorization: Bearer ' . $this->token ) );
+        curl_setopt( $ch_2, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch_2, CURLOPT_FOLLOWLOCATION, true );
 
-        // Close connection
-        curl_close( $ch );
+        // Build the multi-curl handle
+        $mh = curl_multi_init();
+        curl_multi_add_handle( $mh, $ch_1 );
+        curl_multi_add_handle( $mh, $ch_2 );
+
+        // Execute all queries simultaneously
+        $running = null;
+        do {
+            curl_multi_exec( $mh, $running );
+        } while ( $running );
+
+        // Close the handles
+        curl_multi_remove_handle( $mh, $ch_1 );
+        curl_multi_remove_handle( $mh, $ch_2 );
+        curl_multi_close( $mh );
+
+        // all of our requests are done, we can now access the results
+        $response_1 = curl_multi_getcontent( $ch_1 );
+        $response_2 = curl_multi_getcontent( $ch_2 );
 
         // Decode response
-        $json = json_decode( $response );
+        $json = (object)array_merge(
+            json_decode( $response_1, true )['attributesMap'],
+            json_decode( $response_2, true )
+        );
 
         // Exit if error
         if ( json_last_error() ) {
@@ -144,7 +167,7 @@ class Battery_API {
 
     function send_response_json() {
         // Set JSON vars
-        $attributes = $this->json->attributesMap;
+        $attributes = $this->json;
 
         $updateTime = $attributes->updateTime_converted;
         $electricRange = intval( $attributes->beRemainingRangeElectricKm );
@@ -153,6 +176,9 @@ class Battery_API {
 
         $chargingTimeRemaining = intval( $attributes->chargingTimeRemaining );
         $chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) . ' h' ) : '--:--' );
+
+        $stateOfCharge = number_format( round( $attributes->soc, 2 ), 2, ',', '.');
+        $stateOfChargeMax = number_format( round( $attributes->socMax, 2 ), 2, ',', '.');
 
         // Send Header
         header('Access-Control-Allow-Origin: https://' . $_SERVER['SERVER_NAME'] );
@@ -166,7 +192,9 @@ class Battery_API {
                     'electricRange' => $electricRange,
                     'chargingLevel' => $chargingLevel,
                     'chargingActive' => $chargingActive,
-                    'chargingTimeRemaining' => $chargingTimeRemaining
+                    'chargingTimeRemaining' => $chargingTimeRemaining,
+                    'stateOfCharge' => $stateOfCharge,
+                    'stateOfChargeMax' => $stateOfChargeMax
                 )
             )
         );

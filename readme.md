@@ -49,3 +49,19 @@ Um Zugriffe auf sensible (JSON-)Dateien mit Zugsngs- und Token-Daten zu unterbin
     deny from all
 </FilesMatch>
 ```
+
+
+### Datenausgabe
+
+Nachfolgende Datenwerte zeigt die `Battery Status` Web App aktuell an:
+
+* Charge Status (Prozent)
+* Electric Range (Kilometer)
+* Fully Charged (Reststunden)
+* State of Charge (kWh)
+* State of Charge Max (kWh)
+
+
+### App-Icon
+
+Von [Makeable](https://www.iconfinder.com/makea)
