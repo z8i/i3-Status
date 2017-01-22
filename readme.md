@@ -7,6 +7,13 @@ Source Code von [battery.ebiene.de](battery.ebiene.de) Website und API.
 Die Webseite nach Einrichtung im Smartphone-Browser aufrufen und zum Homescreen hinzufügen. Ab diesem Zeitpunkt lässt sich die Web App vom Homescreen heraus im Vollbildmodus starten.
 
 
+<p align="center">
+    <img src="https://github.com/sergejmueller/battery.ebiene.de/tree/master/img/screenshot.png" width="320" height="568" alt="Battery Status Ladevorgang">
+    <br>
+    <b>Battery Status Ladevorgang</b>
+</p>
+
+
 ### Warnung
 
 Keine Garantie für Richtigkeit und Aktualität. Inbetriebnahme auf eigene Gefahr und Verantwortung. Implementierung ausschließlich zu Demozwecken.
