@@ -1,6 +1,6 @@
 # battery.ebiene.de
 
-Source Code von [battery.ebiene.de](battery.ebiene.de) Website und API.
+Source Code von [battery.ebiene.de](https://battery.ebiene.de) Website und API.
 
 `Battery Status` Progressive Web App für BMW i-Modelle ermittelt und zeigt Live-Informationen rund um den Fahrzeug-Akku. Die App bedient sich an gleicher Schnittstelle, die auch von der deutschsprachigen BMW ConnectedDrive Website verwendet wird. Für die Nutzung der Schnittstelle wird ein Bearer-Token benötigt, den die App von der BMW ConnectedDrive Website automatisch einholt.
 
