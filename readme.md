@@ -48,7 +48,7 @@ Keine Garantie für Richtigkeit und Aktualität. Inbetriebnahme auf eigene Gefah
 
 ### Sicherheit
 
-Um Zugriffe auf sensible (JSON-)Dateien mit Zugsngs- und Token-Daten zu unterbinden, *muss* in `.htaccess` folgender Code-Snippet aufgenommen werden (in der Installationsdatei `.htaccess` [bereits vorhanden](https://github.com/sergejmueller/battery.ebiene.de/blob/master/.htaccess#L33-L36)):
+Um Zugriffe auf sensible (JSON-)Dateien mit Zugangs- und Token-Daten zu unterbinden, *muss* in `.htaccess` folgender Code-Snippet aufgenommen werden (in der Installationsdatei `.htaccess` [bereits vorhanden](https://github.com/sergejmueller/battery.ebiene.de/blob/master/.htaccess#L33-L36)):
 
 ```apache
 <FilesMatch "(^\.|\.(json|md)$)">
