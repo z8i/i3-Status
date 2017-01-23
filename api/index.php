@@ -4,11 +4,15 @@
 class Battery_API {
 
 
-    protected $auth;
+    private $token_file = 'token.json';
+    private $auth_file = 'auth.json';
 
-    protected $token;
+    private $auth_api = 'https://customer.bmwgroup.com/gcdm/oauth/authenticate';
+    private $vehicle_api = 'https://www.bmw-connecteddrive.de/api/vehicle';
 
-    protected $json;
+    private $auth;
+    private $token;
+    private $json;
 
 
     function __construct () {
@@ -24,8 +28,7 @@ class Battery_API {
 
     function check_security() {
         if ( empty( $_SERVER['HTTP_REFERER'] ) OR strcmp( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ), $_SERVER['SERVER_NAME'] ) !== 0 ) {
-            http_response_code( 404 );
-            exit;
+            http_response_code( 403 ) && exit;
         }
     }
 
@@ -33,7 +36,7 @@ class Battery_API {
     function get_auth_data() {
         return json_decode(
             @file_get_contents(
-                'auth.json'
+                $this->auth_file
             )
         );
     }
@@ -41,7 +44,7 @@ class Battery_API {
 
     function cache_remote_token( $token_data ) {
         file_put_contents(
-            'token.json',
+            $this->token_file,
             json_encode( $token_data )
         );
     }
@@ -50,7 +53,7 @@ class Battery_API {
     function get_cached_token() {
         return json_decode(
             @file_get_contents(
-                'token.json'
+                $this->token_file
             )
         );
     }
@@ -81,7 +84,7 @@ class Battery_API {
         $ch = curl_init();
 
         // Set cURL options
-        curl_setopt( $ch, CURLOPT_URL, 'https://customer.bmwgroup.com/gcdm/oauth/authenticate' );
+        curl_setopt( $ch, CURLOPT_URL, $this->auth_api );
         curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, false );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch, CURLOPT_HEADER, true );
@@ -102,11 +105,10 @@ class Battery_API {
 
         // Check token type
         if ( empty( $matches[2] ) OR $matches[2] !== 'Bearer' ) {
-            http_response_code(503);
-            exit;
+            http_response_code( 424 ) && exit;
         }
 
-        return array(
+        return (object) array(
             'token' => $matches[1],
             'expires' => time() + $matches[3]
         );
@@ -119,12 +121,12 @@ class Battery_API {
         $ch_2 = curl_init();
 
         // Set cURL options
-        curl_setopt( $ch_1, CURLOPT_URL, 'https://www.bmw-connecteddrive.de/api/vehicle/dynamic/v1/' . $this->auth->vehicle . '?offset=-60' );
+        curl_setopt( $ch_1, CURLOPT_URL, $this->vehicle_api . '/dynamic/v1/' . $this->auth->vehicle . '?offset=-60' );
         curl_setopt( $ch_1, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' , 'Authorization: Bearer ' . $this->token ) );
         curl_setopt( $ch_1, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch_1, CURLOPT_FOLLOWLOCATION, true );
 
-        curl_setopt( $ch_2, CURLOPT_URL, 'https://www.bmw-connecteddrive.de/api/vehicle/navigation/v1/' . $this->auth->vehicle );
+        curl_setopt( $ch_2, CURLOPT_URL, $this->vehicle_api . '/navigation/v1/' . $this->auth->vehicle );
         curl_setopt( $ch_2, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' , 'Authorization: Bearer ' . $this->token ) );
         curl_setopt( $ch_2, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch_2, CURLOPT_FOLLOWLOCATION, true );
@@ -157,8 +159,7 @@ class Battery_API {
 
         // Exit if error
         if ( json_last_error() ) {
-            http_response_code( 503 );
-            exit;
+            http_response_code( 500 ) && exit;
         }
 
         return $json;
