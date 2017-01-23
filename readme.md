@@ -8,9 +8,10 @@ Die Webseite nach Einrichtung im Smartphone-Browser aufrufen und zum Homescreen 
 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/sergejmueller/battery.ebiene.de/master/img/screenshot.jpg" width="320" height="568" alt="Battery Status Ladevorgang">
+    <img src="https://raw.githubusercontent.com/sergejmueller/battery.ebiene.de/master/img/screenshot-1.jpg" width="320" height="568" alt="Battery Status Ladevorgang">
+    <img src="https://raw.githubusercontent.com/sergejmueller/battery.ebiene.de/master/img/screenshot-2.jpg" width="320" height="568" alt="Battery Status Statusanzeige">
     <br>
-    <b>Battery Status Ladevorgang</b>
+    Battery Status (Ladevorgang links, Statusanzeige rechts)
 </p>
 
 
