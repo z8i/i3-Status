@@ -28,7 +28,7 @@ Keine Garantie für Richtigkeit und Aktualität. Inbetriebnahme auf eigene Gefah
 
 ### Installation
 
-1. Datei `.htaccess` nach Wünschen anpassen.
+1. Datei `.htaccess` nach Wünschen anpassen, insbesondere [Zeilen 20-21](https://github.com/sergejmueller/battery.ebiene.de/blob/master/.htaccess#L20-L21).
 2. Datei `token.json` im Ordner `api/` beschreibbar anlegen.
 3. Datei `auth.json` im Ordner `api/` mit BMW ConnectedDrive Zugangsdaten anlegen:
 
