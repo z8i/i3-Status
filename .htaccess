@@ -30,7 +30,7 @@ AddDefaultCharset utf-8
 
 
 # Restrict access
-<FilesMatch "(^\.|\.(json|md)$)">
+<FilesMatch "(^\.|\.(json|md|config)$)">
     order deny,allow
     deny from all
 </FilesMatch>
@@ -56,8 +56,18 @@ AddDefaultCharset utf-8
 
 
 # Security headers
-SetEnvIf Request_URI ^/$ is_html=1
-Header set X-Content-Type-Options "nosniff" env=is_html
-Header set X-XSS-Protection "1; mode=block" env=is_html
-Header append X-Frame-Options "SAMEORIGIN" env=is_html
-Header set Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; font-src 'self'; img-src 'self'; style-src 'unsafe-inline'; connect-src 'self'" env=is_html
+<IfModule mod_headers.c>
+    <IfModule mod_setenvif.c>
+        SetEnvIf Request_URI ^/$ is_html=1
+        Header set X-Content-Type-Options "nosniff" env=is_html
+        Header set X-XSS-Protection "1; mode=block" env=is_html
+        Header append X-Frame-Options "SAMEORIGIN" env=is_html
+        Header set Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; font-src 'self'; img-src 'self'; style-src 'unsafe-inline'; connect-src 'self'" env=is_html
+    </IfModule>
+</IfModule>
+
+
+# Google, please noindex
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag noindex
+</IfModule>

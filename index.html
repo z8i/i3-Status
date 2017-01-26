@@ -9,9 +9,9 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="Battery Status">
 
-        <link rel="preload" href="/fonts/advent-pro-100-reduced.woff2?2017-01-21-v3" as="font" type="font/woff2" crossorigin>
-        <link rel="apple-touch-icon" href="/img/apple-touch-icon.png?2017-01-21-v3" type="image/png">
-        <link rel="icon" href="img/favicon.ico?2017-01-21-v3" type="image/x-icon">
+        <link rel="preload" href="./fonts/advent-pro-100-reduced.woff2?2017-01-21-v3" as="font" type="font/woff2" crossorigin>
+        <link rel="apple-touch-icon" href="./img/apple-touch-icon.png?2017-01-21-v3" type="image/png">
+        <link rel="icon" href="./img/favicon.ico?2017-01-21-v3" type="image/x-icon">
 
         <title>Battery Status</title>
 
@@ -42,7 +42,7 @@
                 font-family: 'Advent Pro';
                 font-style: normal;
                 font-weight: 100;
-                src: local('Advent Pro Thin'), local('AdventPro-Thin'), url('/fonts/advent-pro-100-reduced.woff2?2017-01-21-v3') format('woff2');
+                src: local('Advent Pro Thin'), local('AdventPro-Thin'), url('./fonts/advent-pro-100-reduced.woff2?2017-01-21-v3') format('woff2');
             }
 
             html {
@@ -329,7 +329,7 @@
         <footer id="footer"></footer>
 
 
-        <script src="/scripts/doT.min.js"></script>
+        <script src="./scripts/doT.min.js"></script>
         <script>
             const req = new XMLHttpRequest();
 
@@ -347,7 +347,7 @@
                 document.getElementsByTagName( 'body' )[0].classList.remove( 'loading' );
             } );
 
-            req.open( 'GET', '/api/' );
+            req.open( 'GET', './api/' );
             req.send();
         </script>
 
