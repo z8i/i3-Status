@@ -8,7 +8,7 @@ Die Webseite nach Einrichtung im Smartphone-Browser aufrufen und zum Homescreen 
 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/sergejmueller/battery.ebiene.de/master/img/screenshot-1.jpg" width="720" height="1480" alt="Battery Statusanzeige">
+    <img src="https://raw.githubusercontent.com/sergejmueller/battery.ebiene.de/master/img/screenshot-1.png" width="360" height="740" alt="Battery Statusanzeige">
     <br>
     Battery Statusanzeige
 </p>
