@@ -6,14 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="apple-mobile-web-app-title" content="Battery Status">
+        <meta name="apple-mobile-web-app-title" content="Batterie">
 
-        <link rel="preload" href="./fonts/advent-pro-100-reduced.woff2?2017-01-21-v3" as="font" type="font/woff2" crossorigin>
-        <link rel="apple-touch-icon" href="./img/apple-touch-icon.png?2017-01-21-v3" type="image/png">
-        <link rel="icon" href="./img/favicon.ico?2017-01-21-v3" type="image/x-icon">
+        <link rel="apple-touch-icon" href="./img/apple-touch-icon.png?20170629-v1" type="image/png">
+        <link rel="icon" href="./img/favicon.ico?20170629-v1" type="image/x-icon">
 
-        <title>Battery Status</title>
+        <title>Battery</title>
 
         <style>
             * {
@@ -24,8 +22,6 @@
             }
 
             :root {
-                --color-white: rgb(254, 254, 254);
-                --color-white-light: rgba(254, 254, 254, .6);
                 --color-green: #509000;
                 --color-blue: #1c69d4;
                 --color-blue-light: #C7EEFF;
@@ -33,41 +29,40 @@
                 --color-orange: #DC9012;
                 --color-purple: #f0f;
                 --color-cyan: #0ff;
-                --color-main-border: #222a32;
-                --color-page-gradient-from: #485563;
-                --color-page-gradient-to: #29323c;
+                --color-gray: #333;
             }
 
             @font-face {
                 font-family: 'Advent Pro';
-                font-style: normal;
-                font-weight: 100;
-                src: local('Advent Pro Thin'), local('AdventPro-Thin'), url('./fonts/advent-pro-100-reduced.woff2?2017-01-21-v3') format('woff2');
+                  font-style: normal;
+                  font-weight: 100;
+                  src: local('Advent Pro Thin'), local('AdventPro-Thin'),
+                       url('./fonts/advent-pro-v5-latin-100.woff2') format('woff2');
             }
 
             html {
                 height: 100%;
 
-                background: linear-gradient( to bottom right, var(--color-page-gradient-from), var(--color-page-gradient-to) );
-
-                color: var(--color-white);
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-                text-transform: uppercase;
+                color: var(--color-gray);
+                font-family: 'Advent Pro';
                 text-align: center;
+                font-weight: 100;
 
+                text-rendering: optimizeLegibility;
                 -webkit-font-smoothing: antialiased;
             }
             h2 {
-                font-size: 22px;
-                font-weight: 200;
+                font-size: 26px;
+                font-weight: 100;
                 line-height: 24px;
                 letter-spacing: 1px;
             }
             h4 {
-                color: var(--color-white-light);
-                font-size: 14px;
-                font-weight: 200;
-                line-height: 16px;
+                opacity: .6;
+
+                font-size: 20px;
+                font-weight: 100;
+                line-height: 26px;
                 letter-spacing: 1px;
             }
             section {
@@ -83,9 +78,10 @@
                 padding: 45px 0 4px;
                 position: absolute;
             }
+
             footer {
                 width: 100%;
-                height: 22%;
+                height: 24%;
                 bottom: 0;
                 position: absolute;
 
@@ -93,6 +89,9 @@
                 flex-flow: row wrap;
                 align-items: center;
                 justify-content: center;
+            }
+            footer h4 {
+                text-transform: lowercase;
             }
 
             header,
@@ -109,39 +108,31 @@
             main {
                 top: 50%;
                 left: 50%;
-                width: 200px;
+                width: 320px;
                 height: 200px;
                 position: absolute;
 
-                border: 12px solid var(--color-main-border);
                 border-radius: 100%;
                 overflow: hidden;
 
                 transform: translate(-50%, -50%);
 
                 box-shadow: 0 0 0 transparent;
-                transition: all 1.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
 
             .loading main {
+                width: 200px;
+                height: 200px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
                 animation: pulse 1.7s infinite;
-            }
-            .loading main::after {
-                display: block;
-                content: 'Updating';
 
-                color: var(--color-white);
-                font-size: 22px;
-                font-weight: 200;
-                line-height: 24px;
-                letter-spacing: 1px;
+                transition: opacity 250ms;
             }
 
-            .percent {
+            [data-chargingLevel] {
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -154,105 +145,52 @@
                 align-items: center;
                 justify-content: center;
             }
-            .percent::before {
-                content: attr(data-percent);
+            [data-chargingLevel]::before {
+                content: attr(data-chargingLevel);
                 display: block;
 
-                font-family: 'Advent Pro';
-                font-size: 80px;
-                line-height: 80px;
+                font-size: 150px;
+                line-height: 150px;
                 font-weight: 100;
-
-                text-rendering: optimizeLegibility;
             }
-            .percent::after {
-                top: 58px;
-                right: 20px;
-                position: absolute;
+            [data-chargingLevel]::after {
+                top: -40px;
+                display: block;
+                position: relative;
 
                 content: '%';
-                display: block;
-
-                font-size: 26px;
-                line-height: 26px;
-                font-weight: 100;
-
                 opacity: .6;
+
+                font-size: 25px;
+                line-height: 62px;
             }
 
-            .water {
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                position: absolute;
-
-                z-index: 2;
-
-                background: var(--color-green);
-            }
-
-            .wave {
-                width: 200%;
-                bottom: 100%;
-                display: none;
-                position: absolute;
-            }
-            .wave-back {
-                right: 0;
-
-                fill: var(--color-blue-light);
-
-                animation: wave-back 1.4s infinite linear;
-            }
-            .wave-front {
-                left: 0;
-                margin-bottom: -1px;
-
-                fill: var(--color-blue);
-
-                animation: wave-front .7s infinite linear;
-            }
-
-            @keyframes wave-front {
-                100% {
-                    transform: translate(-50%, 0);
-                }
-            }
-            @keyframes wave-back {
-                100% {
-                    transform: translate(50%, 0);
-                }
-            }
             @keyframes pulse {
                 50% {
-                    box-shadow: -5px 0 20px var(--color-purple), 5px 0 20px var(--color-cyan);
+                    box-shadow: -1px 0 1px var(--color-purple), 1px 0 1px var(--color-cyan);
                 }
             }
 
-            [data-percent^="0"] + .water,
-            [data-percent^="1"] + .water,
-            [data-percent^="2"] + .water {
-                background: var(--color-red);
+            [data-chargingLevel^="0"],
+            [data-chargingLevel^="1"] {
+                color: var(--color-red);
             }
-            [data-percent^="3"] + .water,
-            [data-percent^="4"] + .water {
-                background: var(--color-orange);
+            [data-chargingLevel^="2"],
+            [data-chargingLevel^="3"] {
+                color: var(--color-orange);
             }
-            [data-percent="100"] + .water {
-                background: var(--color-green);
+            [data-chargingLevel="100"] {
+                color: var(--color-green);
             }
 
-            [data-charging="1"].water {
-                background: var(--color-blue);
-            }
-            [data-charging="1"] .wave {
-                display: block;
+            [chargingActive="1"] {
+                color: var(--color-blue);
             }
         </style>
 
         <script id="header-tmpl" type="text/x-dot-template">
             <h2>
-                Battery Status
+                Battery
             </h2>
             <h4>
                 {{=it.updateTime}}
@@ -260,16 +198,7 @@
         </script>
 
         <script id="main-tmpl" type="text/x-dot-template">
-            <span class="percent" data-percent="{{=it.chargingLevel}}"></span>
-
-            <div class="water" data-charging="{{=it.chargingActive}}" style="height:{{=it.chargingLevel}}%">
-                <svg viewBox="0 0 560 20" class="wave wave-back">
-                    <use xlink:href="#wave"></use>
-                </svg>
-                <svg viewBox="0 0 560 20" class="wave wave-front">
-                    <use xlink:href="#wave"></use>
-                </svg>
-            </div>
+            <span data-chargingLevel="{{=it.chargingLevel}}" chargingActive="{{=it.chargingActive}}"></span>
         </script>
 
         <script id="footer-tmpl" type="text/x-dot-template">
@@ -284,19 +213,19 @@
 
             <section>
                 <h4>
-                    SoC
+                    Charged in
                 </h4>
                 <h2>
-                    {{=it.stateOfCharge}} kWh
+                    {{=it.chargingTimeRemaining}} h
                 </h2>
             </section>
 
             <section>
                 <h4>
-                    Charged
+                    SoC
                 </h4>
                 <h2>
-                    {{=it.chargingTimeRemaining}}
+                    {{=it.stateOfCharge}} kWh
                 </h2>
             </section>
 
@@ -312,16 +241,6 @@
     </head>
 
     <body class="loading">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" hidden>
-            <symbol id="wave">
-                <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
-                <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
-                <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
-                <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
-            </symbol>
-        </svg>
-
-
         <header id="header"></header>
 
         <main id="main"></main>
@@ -331,37 +250,49 @@
 
         <script src="./scripts/doT.min.js"></script>
         <script>
-            const req = new XMLHttpRequest();
+            document.addEventListener(
+                'visibilitychange',
+                function() {
 
-            req.addEventListener( 'load', function() {
-                if ( this.status !== 200 ) {
-                    return alert( 'Request failed: ' + this.status );
+                    window.location.reload();
+
+                },
+                false
+            );
+
+            window.addEventListener( 'load', function( e ) {
+
+                window.applicationCache.addEventListener( 'updateready', function( e ) {
+
+                    if ( window.applicationCache.status == window.applicationCache.UPDATEREADY ) {
+                        window.applicationCache.swapCache();
+                        window.location.reload();
+                    }
+
+                }, false );
+
+            }, false );
+
+            fetch( './api/' )
+            .then( response => {
+
+                if ( response.status === 200 ) {
+                    return response.json();
                 }
 
-                const json = JSON.parse( this.responseText );
+            } ).then( json => {
 
                 [ 'header', 'main', 'footer' ].forEach( id => {
                     document.getElementById( id ).innerHTML = doT.template( document.getElementById( `${id}-tmpl` ).text )( json );
                 } );
 
                 document.getElementsByTagName( 'body' )[0].classList.remove( 'loading' );
-            } );
 
-            req.open( 'GET', './api/' );
-            req.send();
-        </script>
+            } ).catch( error => {
 
-        <script>
-            window.addEventListener( 'load', function( e ) {
+                console.log( error );
 
-                window.applicationCache.addEventListener( 'updateready', function( e ) {
-                    if ( window.applicationCache.status == window.applicationCache.UPDATEREADY ) {
-                        window.applicationCache.swapCache();
-                        window.location.reload();
-                    }
-                }, false );
-
-            }, false );
+            } )
         </script>
     </body>
 </html>
