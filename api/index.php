@@ -170,13 +170,19 @@ class Battery_API {
         // Set JSON vars
         $attributes = $this->json;
 
-        $updateTime = $attributes->updateTime_converted;
+        $updateTimestamp = $attributes->updateTime_converted_timestamp / 1000;
+
+        if( date( 'I', $updateTimestamp ) == 1 ) {
+            $updateTimestamp -= 3600;
+        }
+
+        $updateTime = date( 'd.m.Y H:i', $updateTimestamp );
         $electricRange = intval( $attributes->beRemainingRangeElectricKm );
         $chargingLevel = intval( $attributes->chargingLevelHv );
         $chargingActive = intval( $attributes->chargingSystemStatus === 'CHARGINGACTIVE' );
 
         $chargingTimeRemaining = intval( $attributes->chargingTimeRemaining );
-        $chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) . ' h' ) : '--:--' );
+        $chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) ) : '0:00' );
 
         $stateOfCharge = number_format( round( $attributes->soc, 2 ), 2, ',', '.');
         $stateOfChargeMax = number_format( round( $attributes->socMax, 2 ), 2, ',', '.');
