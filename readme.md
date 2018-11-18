@@ -1,5 +1,7 @@
 Initial Source Code von [battery.ebiene.de](https://battery.ebiene.de) Website und API.
+
 Ursprünge im goingelectric.de https://www.goingelectric.de/forum/bmw-i3-laden/habe-mir-eine-webapp-fuer-den-batterie-status-gebaut-t21224-210.html
+
 Aktualisiert und weiterentwickelt von Endurance und anderen, siehe auch:
 https://okedv.dyndns.org/wbb/blog/index.php?entry/46-versteckte-geheime-aber-wichtige-infos-zum-bmw-i3/
 https://okedv.dyndns.org/wbb/blog/index.php?entry/51-connecteddrive-webapp-fuer-i3-und-plugins/
