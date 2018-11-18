@@ -1,18 +1,16 @@
-# battery.ebiene.de
+Initial Source Code von [battery.ebiene.de](https://battery.ebiene.de) Website und API.
+Ursprünge im goingelectric.de https://www.goingelectric.de/forum/bmw-i3-laden/habe-mir-eine-webapp-fuer-den-batterie-status-gebaut-t21224-210.html
+Aktualisiert und weiterentwickelt von Endurance und anderen, siehe auch:
+https://okedv.dyndns.org/wbb/blog/index.php?entry/46-versteckte-geheime-aber-wichtige-infos-zum-bmw-i3/
+https://okedv.dyndns.org/wbb/blog/index.php?entry/51-connecteddrive-webapp-fuer-i3-und-plugins/
+https://okedv.dyndns.org/wbb/blog/index.php?entry/56-webapp-fuer-bmw-i3-8-und-plugins/
 
-Source Code von [battery.ebiene.de](https://battery.ebiene.de) Website und API.
+
+
 
 `Battery Status` Progressive Web App für BMW i-Modelle ermittelt und zeigt Live-Informationen rund um den Fahrzeug-Akku. Die App bedient sich an gleicher Schnittstelle, die auch von der deutschsprachigen BMW ConnectedDrive Website verwendet wird. Für die Nutzung der Schnittstelle wird ein Bearer-Token benötigt, den die App von der BMW ConnectedDrive Website automatisch einholt.
 
 Die Webseite nach Einrichtung im Smartphone-Browser aufrufen und zum Homescreen hinzufügen. Ab diesem Zeitpunkt lässt sich die Web App vom Homescreen heraus im Vollbildmodus starten.
-
-
-<p align="center">
-    <img src="https://raw.githubusercontent.com/sergejmueller/battery.ebiene.de/master/img/screenshot-1.png" width="360" height="740" alt="Battery Statusanzeige">
-    <br>
-    Battery Statusanzeige
-</p>
-
 
 ### Warnung
 
@@ -56,17 +54,6 @@ Um Zugriffe auf sensible (JSON-)Dateien mit Zugangs- und Token-Daten zu unterbin
     deny from all
 </FilesMatch>
 ```
-
-
-### Datenausgabe
-
-Nachfolgende Datenwerte zeigt die `Battery Status` Web App aktuell an:
-
-* Charge Status (Prozent)
-* Electric Range (Kilometer)
-* Fully Charged (Reststunden)
-* State of Charge (kWh)
-* State of Charge Max (kWh)
 
 
 ### App-Icon
