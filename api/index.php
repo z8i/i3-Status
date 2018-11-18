@@ -16,9 +16,6 @@ class Battery_API {
         $this->check_security();
 
         $this->auth 		= $this->get_auth_data();
-		// to check if user/pwd were correctly read
-		//error_log("User:".$this->auth->username);
-		//error_log("PWD:".$this->auth->password);
         $this->token 		= $this->get_token();
         $this->json 		= $this->get_vehicle_data();
 
@@ -26,8 +23,6 @@ class Battery_API {
     }
 
     function check_security() {
-		//error_log("checksecurity: ");
-		//error_log($_SERVER['HTTP_REFERER']);
         if ( empty( $_SERVER['HTTP_REFERER'] ) OR strcmp( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ), $_SERVER['SERVER_NAME'] ) !== 0 ) {
             http_response_code( 403 ) && exit;
         }
@@ -175,7 +170,7 @@ class Battery_API {
 		/*
 		{
 		  "attributesMap" : {
-			"updateTime_converted" : "04.02.2017 15:42",                                          
+			"updateTime_converted" : "04.02.2017 15:42",                                          // berücksichtigt Zeitzone aber nicht Sommerzeit?
 			"condition_based_services" : "00032,OK,2017-04,;00003,OK,2018-03,;00017,OK,2018-03,",
 			"door_lock_state" : "SECURED",                                                        // "SECURED", LOCKED, SELECTIVELOCKED, OPEN, ...
 			"vehicle_tracking" : "1",
