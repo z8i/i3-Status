@@ -1,4 +1,9 @@
-### i3 Status
+### Nächste Schritte
+- Statistik statt in Textdatei in der Datenbank ablegen
+- Benutzeranmeldung überarbeiten (optisch)
+- Tabellen für Benutzeranmeldung automatisch anlegen bei Neueinrichtung
+
+# i3 Status
 Weiterentwicklung von battery.ebiene.de und i-Battery.
 
 Initial Source Code von [battery.ebiene.de](https://battery.ebiene.de) Website und API.
