@@ -24,7 +24,7 @@
                 font-family: 'Advent Pro';
                 font-style: normal;
                 font-weight: 100;
-                src: local('Advent Pro Thin'), local('AdventPro-Thin'), url('./fonts/advent-pro-100-reduced.woff2?2017-01-21-v3') format('woff2');
+                src: local('Advent Pro Thin'), local('AdventPro-Thin'), url('./fonts/advent-pro-100-reduced.woff2') format('woff2');
             }
 
             html {
