@@ -27,8 +27,8 @@ Keine Garantie für Richtigkeit und Aktualität. Inbetriebnahme auf eigene Gefah
 ### Installation
 
 1. Datei `.htaccess` nach Wünschen anpassen
-2. Datei `token.json` im Ordner `api/` beschreibbar anlegen.
-3. Datei `auth.json` im Ordner `api/` mit BMW ConnectedDrive Zugangsdaten anlegen:
+2. Datei `token.json` im Ordner `api/access/` beschreibbar anlegen.
+3. Datei `auth.json` im Ordner `api/access/` mit BMW ConnectedDrive Zugangsdaten anlegen:
 
 ```json
 {
@@ -43,18 +43,18 @@ Keine Garantie für Richtigkeit und Aktualität. Inbetriebnahme auf eigene Gefah
 | `username` | BMW ConnectedDrive Benutzername |
 | `password` | BMW ConnectedDrive Passwort     |
 | `vehicle`  | 17-stellige Fahrgestellnummer   |
+4. Datei `db.php` im Ordner `api/access/` mit den DB-Zugangsdaten ausstatten
+5. Initial-Benutzer von Hand in der DB anlegen, mit password_hash(z.B. von [hier](http://www.passwordtool.hu/php5-password-hash-generator))
+
+### Benutzerabfrage
+Die Benutzer der WebApp werden über ein login-Script abgefragt, welches eine Server-Session erstellt.
+Wenn man nicht angemeldet ist, wird man automatisch auf die login.php weitergeleitet.
+Um neue Benutzer anzulegen, kann die update.php verwendet werden, dort wird ein "Admin-Key" abgefragt, der in der db.php gesetzt werden muss.
+
 
 
 ### Sicherheit
-
-Um Zugriffe auf sensible (JSON-)Dateien mit Zugangs- und Token-Daten zu unterbinden, *muss* in `.htaccess` folgender Code-Snippet aufgenommen werden (in der Installationsdatei `.htaccess` [bereits vorhanden](https://github.com/sergejmueller/battery.ebiene.de/blob/master/.htaccess#L33-L36)):
-
-```apache
-<FilesMatch "(^\.|\.(json|md)$)">
-    order deny,allow
-    deny from all
-</FilesMatch>
-```
+Die Konfigurationsdateien haben jeweils `.htaccess`-Daten im Ordner, die anderen Seiten werden per Server-Session abgesichert.
 
 
 ### App-Icon
