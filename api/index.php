@@ -170,7 +170,7 @@ class Battery_API {
 		/*
 		{
 		  "attributesMap" : {
-			"updateTime_converted" : "04.02.2017 15:42",                                          // berücksichtigt Zeitzone aber nicht Sommerzeit?
+			"updateTime_converted" : "04.02.2017 15:42",                                          // berÃ¼cksichtigt Zeitzone aber nicht Sommerzeit?
 			"condition_based_services" : "00032,OK,2017-04,;00003,OK,2018-03,;00017,OK,2018-03,",
 			"door_lock_state" : "SECURED",                                                        // "SECURED", LOCKED, SELECTIVELOCKED, OPEN, ...
 			"vehicle_tracking" : "1",
@@ -232,21 +232,21 @@ class Battery_API {
 		  "vehicleMessages" : {
 			"ccmMessages" : [ ],
 			"cbsMessages" : [ {
-			  "description" : "Nächste gesetzliche Fahrzeuguntersuchung zum angegebenen Termin.",
-			  "text" : "§ Fahrzeuguntersuchung",
+			  "description" : "NÃ¤chste gesetzliche Fahrzeuguntersuchung zum angegebenen Termin.",
+			  "text" : "Â§ Fahrzeuguntersuchung",
 			  "id" : 32,
 			  "status" : "OK",
 			  "messageType" : "CBS",
 			  "date" : "2017-04"
 			}, {
-			  "description" : "Nächster Wechsel spätestens zum angegebenen Termin.",
-			  "text" : "Bremsflüssigkeit",
+			  "description" : "NÃ¤chster Wechsel spÃ¤testens zum angegebenen Termin.",
+			  "text" : "BremsflÃ¼ssigkeit",
 			  "id" : 3,
 			  "status" : "OK",
 			  "messageType" : "CBS",
 			  "date" : "2018-03"
 			}, {
-			  "description" : "Nächste Sichtprüfung nach der angegebenen Fahrstrecke oder zum angegebenen Termin.",
+			  "description" : "NÃ¤chste SichtprÃ¼fung nach der angegebenen Fahrstrecke oder zum angegebenen Termin.",
 			  "text" : "Fahrzeug-Check",
 			  "id" : 17,
 			  "status" : "OK",
@@ -296,19 +296,19 @@ class Battery_API {
 				case JSON_ERROR_NONE:
 					break;
 				case JSON_ERROR_DEPTH:
-					error_log(' JSON1 - Maximale Stacktiefe überschritten'.">".$response_1."<");
+					error_log(' JSON1 - Maximale Stacktiefe Ã¼berschritten'.">".$response_1."<");
 					break;
 				case JSON_ERROR_STATE_MISMATCH:
-					error_log(' JSON1 - Unterlauf oder Nichtübereinstimmung der Modi'.">".$response_1."<");
+					error_log(' JSON1 - Unterlauf oder NichtÃ¼bereinstimmung der Modi'.">".$response_1."<");
 					break;
 				case JSON_ERROR_CTRL_CHAR:
 					error_log(' JSON1 - Unerwartetes Steuerzeichen gefunden'.">".$response_1."<>".$ch_1."<");
 					break;
 				case JSON_ERROR_SYNTAX:
-					error_log(' JSON1 - Syntaxfehler, ungültiges JSON'.">".$response_1."<");
+					error_log(' JSON1 - Syntaxfehler, ungÃ¼ltiges JSON'.">".$response_1."<");
 					break;
 				case JSON_ERROR_UTF8:
-					error_log(' JSON1 - Missgestaltete UTF-8 Zeichen, möglicherweise fehlerhaft kodiert'.">".$response_1."<");
+					error_log(' JSON1 - Missgestaltete UTF-8 Zeichen, mÃ¶glicherweise fehlerhaft kodiert'.">".$response_1."<");
 					break;
 				default:
 					error_log(' JSON1 - Unbekannter Fehler'.">".$response_1."<");
@@ -327,19 +327,19 @@ class Battery_API {
 				case JSON_ERROR_NONE:
 					break;
 				case JSON_ERROR_DEPTH:
-					error_log(' JSON2 - Maximale Stacktiefe überschritten'.">".$response_2."<");
+					error_log(' JSON2 - Maximale Stacktiefe Ã¼berschritten'.">".$response_2."<");
 					break;
 				case JSON_ERROR_STATE_MISMATCH:
-					error_log(' JSON2 - Unterlauf oder Nichtübereinstimmung der Modi'.">".$response_2."<");
+					error_log(' JSON2 - Unterlauf oder NichtÃ¼bereinstimmung der Modi'.">".$response_2."<");
 					break;
 				case JSON_ERROR_CTRL_CHAR:
 					error_log(' JSON2 - Unerwartetes Steuerzeichen gefunden'.">".$response_2."<>".$ch_2."<");
 					break;
 				case JSON_ERROR_SYNTAX:
-					error_log(' JSON2 - Syntaxfehler, ungültiges JSON'.">".$response_2."<");
+					error_log(' JSON2 - Syntaxfehler, ungÃ¼ltiges JSON'.">".$response_2."<");
 					break;
 				case JSON_ERROR_UTF8:
-					error_log(' JSON2 - Missgestaltete UTF-8 Zeichen, möglicherweise fehlerhaft kodiert'.">".$response_2."<");
+					error_log(' JSON2 - Missgestaltete UTF-8 Zeichen, mÃ¶glicherweise fehlerhaft kodiert'.">".$response_2."<");
 					break;
 				default:
 					error_log(' JSON2 - Unbekannter Fehler'.">".$response_2."<");
@@ -463,13 +463,13 @@ class Battery_API {
 		
 		$timestamp=intval($attributes->updateTime_converted_timestamp/1000);
 		$ltime = localtime(time(),true);
-		// "tm_isdst" - Ob für das Datum die Sommerzeit zu berücksichtigen ist Positiv wenn Ja, 0 wenn Nein, negativ wenn unbekannt
+		// "tm_isdst" - Ob fÃ¼r das Datum die Sommerzeit zu berÃ¼cksichtigen ist Positiv wenn Ja, 0 wenn Nein, negativ wenn unbekannt
 		$summertime=intval($ltime['tm_isdst']);
 		// checks if the webserver (this page) is currently under summertime
 		if($summertime>0)
 			$display_data["updateTime"] = strftime("%a %d.%m.%Y %H:%M:%S Summer",$timestamp-3600); 
 		else
-			$display_data["updateTime"] = strftime("%a %d.%m.%Y %H:%M:%S Winter",$timestamp-3600); // hmm hat BMW etwas geändert? nun auch im winter -1h versatz
+			$display_data["updateTime"] = strftime("%a %d.%m.%Y %H:%M:%S Winter",$timestamp);
 		
 		$act_updatetime_timestamp = $attributes->updateTime_converted_timestamp; // // UTC + timezone but not Summertime as timestamp
 		
