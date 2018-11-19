@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['dbHost'] = 'host';
+$GLOBALS['dbHost'] = 'hostname';
 $GLOBALS['dbUser'] = 'user';
 $GLOBALS['dbPass'] = 'pass';
 $GLOBALS['dbDatabase'] = 'dbname';
