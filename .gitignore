@@ -1,3 +1,8 @@
 
 *.json
 .htaccess
+.project
+.buildpath
+!manifest.json
+appstats.txt
+db.php
